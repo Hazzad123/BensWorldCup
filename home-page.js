@@ -2,6 +2,7 @@ import { getFixtures } from "./api.js";
 
 import {
   bettingState,
+  loadBettingState,
   saveBettingState
 } from "./betting.js";
 
@@ -29,7 +30,8 @@ function renderBalance() {
     bettingState.balance;
 }
 
-renderBalance();
+balanceElement.textContent =
+  "...";
 
 loadFeaturedMatch();
 
@@ -39,11 +41,17 @@ async function loadFeaturedMatch() {
   featuredMatchContainer.textContent =
     "Loading featured match...";
 
-  try {
+    try {
+    // Load the saved balance and active bet from
+    // Cloudflare KV before rendering the page.
+    await loadBettingState();
+
+    renderBalance();
+
     const matches =
       await getFixtures();
 
-    settleActiveBet(matches);
+    await settleActiveBet(matches);
 
     // Settling a completed bet may change the balance.
     renderBalance();
@@ -340,15 +348,18 @@ function attachBettingEvents(featuredMatch) {
     showBetFormButton.hidden = true;
   });
 
-  betForm.addEventListener("submit", event => {
+    betForm.addEventListener("submit", async event => {
     event.preventDefault();
 
-    placeBet(featuredMatch, betForm);
+    await placeBet(
+      featuredMatch,
+      betForm
+    );
   });
 }
 
 // Validate and save a fake bet.
-function placeBet(match, betForm) {
+async function placeBet(match, betForm) {
   const formData = new FormData(betForm);
 
   const selection =
@@ -379,7 +390,7 @@ function placeBet(match, betForm) {
     status: "pending"
   };
 
-  saveBettingState();
+  await saveBettingState();
 
   renderBalance();
 
@@ -430,7 +441,7 @@ function createActiveBetText(match) {
 }
 
 // Settle the active bet if its match has finished.
-function settleActiveBet(matches) {
+async function settleActiveBet(matches) {
   const bet = bettingState.activeBet;
 
   if (!bet) {
@@ -474,7 +485,7 @@ function settleActiveBet(matches) {
     bet.status = "lost";
   }
 
-  saveBettingState();
+  await saveBettingState();
 }
 
 //Translate the API winner fields
