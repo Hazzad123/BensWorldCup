@@ -1,0 +1,466 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #08111f;
+  --panel: #101c2f;
+  --panel-2: #17243a;
+  --line: rgba(255, 255, 255, 0.12);
+  --text: #f7fbff;
+  --muted: #9caec6;
+  --lime: #b6ff4d;
+  --cyan: #43d9ff;
+  --pink: #ff4f8b;
+  --orange: #ffb347;
+  --shadow: 0 22px 50px rgba(0, 0, 0, 0.34);
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(circle at top left, rgba(67, 217, 255, 0.18), transparent 32%),
+    radial-gradient(circle at top right, rgba(255, 79, 139, 0.16), transparent 34%),
+    linear-gradient(180deg, #08111f 0%, #0c1628 48%, #101827 100%);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid var(--line);
+  background: rgba(8, 17, 31, 0.88);
+  backdrop-filter: blur(16px);
+}
+
+header h1 {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 24px 20px 14px;
+  color: var(--text);
+  font-size: 2.5rem;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+header h1 a {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+header h1 a::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--lime);
+  box-shadow: 0 0 24px var(--lime);
+}
+
+header h1 a:hover {
+  color: var(--lime);
+}
+
+nav {
+  display: flex;
+  gap: 12px;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px 22px;
+}
+
+nav a {
+  min-width: 170px;
+  padding: 12px 18px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-weight: 900;
+  text-align: center;
+}
+
+nav a:hover,
+nav a.active-page {
+  border-color: rgba(182, 255, 77, 0.7);
+  background: rgba(182, 255, 77, 0.14);
+  color: var(--text);
+  box-shadow: inset 0 -3px 0 var(--lime);
+}
+
+main {
+  width: min(100% - 32px, 1080px);
+  margin: 0 auto;
+  padding: 44px 0 62px;
+}
+
+section {
+  margin-bottom: 34px;
+}
+
+h2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 22px;
+  color: var(--text);
+  font-size: 1.85rem;
+  line-height: 1.15;
+}
+
+h2::after {
+  content: "";
+  width: 62px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--pink);
+}
+
+main > p,
+.balance-panel,
+.match-card {
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)),
+    var(--panel);
+  box-shadow: var(--shadow);
+}
+
+main > p {
+  max-width: 680px;
+  margin: 0 0 30px;
+  padding: 26px;
+  border-radius: 18px;
+  color: var(--muted);
+  font-size: 1.12rem;
+}
+
+.balance-panel {
+  max-width: 420px;
+  padding: 24px;
+  border-radius: 18px;
+}
+
+.balance-panel h2 {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: var(--muted);
+}
+
+.balance-panel h2::after {
+  background: var(--cyan);
+}
+
+.balance-panel p {
+  margin: 0;
+  color: var(--lime);
+  font-size: 2.45rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+#matches-list,
+#completed-matches-list,
+#featured-match {
+  display: grid;
+  gap: 18px;
+}
+
+.match-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 24px;
+  padding: 24px;
+  border-radius: 20px;
+}
+
+.match-card p {
+  margin: 0;
+}
+
+.match-card p:first-child,
+.match-card p:nth-child(3) {
+  color: var(--text);
+  font-size: 1.2rem;
+  font-weight: 900;
+}
+
+.match-card p:nth-child(3) {
+  text-align: right;
+}
+
+.match-card p:nth-child(2) {
+  min-width: 92px;
+  padding: 11px 18px;
+  border-radius: 14px;
+  background: var(--lime);
+  color: #111827;
+  font-size: 1.34rem;
+  font-weight: 900;
+  text-align: center;
+  box-shadow: 0 12px 26px rgba(182, 255, 77, 0.22);
+}
+
+.match-card p:nth-child(4) {
+  grid-column: 1 / -1;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.active-bet,
+#bet-form,
+#bet-message {
+  grid-column: 1 / -1;
+}
+
+.active-bet {
+  display: grid;
+  gap: 6px;
+  padding: 14px;
+  border: 1px solid rgba(67, 217, 255, 0.3);
+  border-radius: 14px;
+  background: rgba(67, 217, 255, 0.08);
+}
+
+.match-card button {
+  grid-column: 1 / -1;
+  justify-self: center;
+  padding: 11px 18px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--pink);
+  color: #ffffff;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+#bet-form {
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+#bet-form[hidden] {
+  display: none;
+}
+
+#bet-form fieldset {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+#bet-form legend,
+#bet-form label {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+#bet-form input[type="number"] {
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel-2);
+  color: var(--text);
+}
+
+footer {
+  width: min(100% - 32px, 1080px);
+  margin: 0 auto;
+  padding: 28px 0;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  text-align: center;
+}
+
+footer p {
+  margin: 0;
+}
+
+@media (max-width: 680px) {
+  body {
+    background:
+      radial-gradient(circle at top, rgba(67, 217, 255, 0.16), transparent 34%),
+      linear-gradient(180deg, #08111f 0%, #101827 100%);
+  }
+
+  header {
+    position: sticky;
+  }
+
+  header h1 {
+    padding: 18px 14px 12px;
+    font-size: 1.65rem;
+  }
+
+  header h1 a {
+    gap: 9px;
+  }
+
+  header h1 a::before {
+    width: 12px;
+    height: 12px;
+  }
+
+  nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 0 12px 14px;
+  }
+
+  nav a {
+    min-width: 0;
+    min-height: 46px;
+    display: grid;
+    place-items: center;
+    padding: 10px 8px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    line-height: 1.1;
+  }
+
+  main {
+    width: min(100% - 20px, 1080px);
+    padding-top: 22px;
+    padding-bottom: 38px;
+  }
+
+  section {
+    margin-bottom: 24px;
+  }
+
+  h2 {
+    gap: 9px;
+    margin-bottom: 16px;
+    font-size: 1.35rem;
+  }
+
+  h2::after {
+    width: 38px;
+    height: 3px;
+  }
+
+  .balance-panel {
+    max-width: none;
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .balance-panel h2 {
+    font-size: 1rem;
+  }
+
+  .balance-panel p {
+    font-size: 2rem;
+  }
+
+  #matches-list,
+  #completed-matches-list,
+  #featured-match {
+    gap: 12px;
+  }
+
+  .match-card {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 16px;
+    border-radius: 16px;
+    text-align: center;
+  }
+
+  .match-card p:first-child,
+  .match-card p:nth-child(3) {
+    font-size: 1.05rem;
+    line-height: 1.25;
+  }
+
+  .match-card p:nth-child(2) {
+    justify-self: center;
+    min-width: 78px;
+    padding: 8px 14px;
+    font-size: 1.14rem;
+  }
+
+  .match-card p:nth-child(3) {
+    text-align: center;
+  }
+
+  .match-card p:nth-child(4) {
+    padding-top: 10px;
+    font-size: 0.85rem;
+  }
+
+  .match-card button {
+    width: 100%;
+    min-height: 46px;
+    padding: 12px 16px;
+  }
+
+  #bet-form {
+    gap: 12px;
+    padding: 14px;
+    text-align: left;
+  }
+
+  #bet-form label {
+    display: block;
+    padding: 6px 0;
+  }
+
+  #bet-form input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+  }
+
+  #bet-form input[type="number"] {
+    min-height: 44px;
+    font-size: 1rem;
+  }
+
+  footer {
+    width: min(100% - 20px, 1080px);
+    padding: 20px 0;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 380px) {
+  header h1 {
+    font-size: 1.45rem;
+  }
+
+  nav {
+    grid-template-columns: 1fr;
+  }
+
+  .match-card {
+    padding: 14px;
+  }
+}
+
+/* This UI was done by AI because Ben was Lazy */
