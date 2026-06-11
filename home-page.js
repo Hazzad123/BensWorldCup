@@ -72,11 +72,11 @@ function createFeaturedMatchCard(match) {
 
   return `
     <article class="match-card">
-      <p>${match.teams.home.name}</p>
+      <p>${createFeaturedTeamMarkup(match.teams.home)}</p>
 
       <p>vs</p>
 
-      <p>${match.teams.away.name}</p>
+      <p>${createFeaturedTeamMarkup(match.teams.away)}</p>
 
       <p>${formatKickoff(match.fixture.date)}</p>
 
@@ -89,6 +89,98 @@ function createFeaturedMatchCard(match) {
       }
     </article>
   `;
+}
+
+// Add a flag to teams in the featured game only.
+function createFeaturedTeamMarkup(team) {
+  const countryCode = getCountryCode(team.name);
+  const fallbackFlag = getEmojiFlag(countryCode);
+
+  if (!countryCode) {
+    return team.name;
+  }
+
+  return `
+    <span class="featured-team">
+      <img
+        class="featured-flag"
+        src="flags/${countryCode}.svg"
+        alt="${team.name} flag"
+        onerror="this.nextElementSibling.style.display = 'inline'; this.remove();"
+      >
+      <span class="flag-fallback">${fallbackFlag}</span>
+      <span>${team.name}</span>
+    </span>
+  `;
+}
+
+// Match team names to ISO-style flag filenames.
+function getCountryCode(teamName) {
+  const countryCodes = {
+    Canada: "CA",
+    Switzerland: "CH",
+    Mexico: "MX",
+    "South Korea": "KR",
+    Argentina: "AR",
+    Japan: "JP",
+    Brazil: "BR",
+    Denmark: "DK",
+    Spain: "ES",
+    Ghana: "GH",
+    France: "FR",
+    Morocco: "MA",
+    England: "GB-ENG",
+    Uruguay: "UY",
+    Portugal: "PT",
+    Netherlands: "NL",
+    Germany: "DE",
+    "United States": "US",
+    Senegal: "SN",
+    Chile: "CL",
+    Italy: "IT",
+    Colombia: "CO",
+    Nigeria: "NG",
+    Australia: "AU",
+    Belgium: "BE",
+    Croatia: "HR",
+    Cameroon: "CM",
+    "New Zealand": "NZ",
+    Norway: "NO",
+    Ecuador: "EC",
+    Poland: "PL",
+    Qatar: "QA",
+    "Czech Republic": "CZ",
+    Scotland: "GB-SCT",
+    Egypt: "EG",
+    "Costa Rica": "CR",
+    Sweden: "SE",
+    Paraguay: "PY",
+    Tunisia: "TN",
+    "Saudi Arabia": "SA",
+    Wales: "GB-WLS",
+    Serbia: "RS",
+    Algeria: "DZ",
+    Jamaica: "JM",
+    Ukraine: "UA",
+    Peru: "PE",
+    "Ivory Coast": "CI",
+    Panama: "PA"
+  };
+
+  return countryCodes[teamName];
+}
+
+// Convert two-letter country codes into emoji fallbacks.
+function getEmojiFlag(countryCode) {
+  if (!countryCode || countryCode.includes("-")) {
+    return "🏳️";
+  }
+
+  return countryCode
+    .toUpperCase()
+    .replace(/./g, char =>
+      String.fromCodePoint(127397 + char.charCodeAt())
+    );
 }
 
 // Show a dash if a score is missing.

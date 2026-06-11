@@ -3,29 +3,31 @@
 }
 
 :root {
-  --bg: #08111f;
-  --panel: #101c2f;
-  --panel-2: #17243a;
-  --line: rgba(255, 255, 255, 0.12);
-  --text: #f7fbff;
-  --muted: #9caec6;
-  --lime: #b6ff4d;
-  --cyan: #43d9ff;
-  --pink: #ff4f8b;
-  --orange: #ffb347;
-  --shadow: 0 22px 50px rgba(0, 0, 0, 0.34);
+  --bg: #001b2e;
+  --desktop: #0b4f6c;
+  --window: #f5f2d6;
+  --window-dark: #d8d19c;
+  --ink: #111111;
+  --muted: #4d4d4d;
+  --blue: #0047ff;
+  --cyan: #00d5ff;
+  --yellow: #ffe66d;
+  --red: #ff4d4d;
+  --green: #46ff6f;
+  --pixel-shadow: 6px 6px 0 #000000;
 }
 
 body {
   min-height: 100vh;
   margin: 0;
   background:
-    radial-gradient(circle at top left, rgba(67, 217, 255, 0.18), transparent 32%),
-    radial-gradient(circle at top right, rgba(255, 79, 139, 0.16), transparent 34%),
-    linear-gradient(180deg, #08111f 0%, #0c1628 48%, #101827 100%);
-  color: var(--text);
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.5;
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    var(--desktop);
+  background-size: 18px 18px;
+  color: var(--ink);
+  font-family: "Courier New", Courier, monospace;
+  line-height: 1.4;
 }
 
 a {
@@ -34,138 +36,139 @@ a {
 }
 
 header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  border-bottom: 1px solid var(--line);
-  background: rgba(8, 17, 31, 0.88);
-  backdrop-filter: blur(16px);
+  border-bottom: 4px solid #000000;
+  background: var(--window);
 }
 
 header h1 {
-  max-width: 1080px;
+  max-width: 1040px;
   margin: 0 auto;
-  padding: 24px 20px 14px;
-  color: var(--text);
-  font-size: 2.5rem;
+  padding: 18px 14px 10px;
+  color: var(--ink);
+  font-size: 2rem;
   line-height: 1;
-  letter-spacing: 0;
+  text-transform: uppercase;
 }
 
 header h1 a {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 header h1 a::before {
-  content: "";
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--lime);
-  box-shadow: 0 0 24px var(--lime);
+  content: "⚽";
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 3px solid #000000;
+  background: var(--yellow);
+  font-size: 1rem;
 }
 
 header h1 a:hover {
-  color: var(--lime);
+  color: var(--blue);
 }
 
 nav {
   display: flex;
-  gap: 12px;
-  max-width: 1080px;
+  gap: 8px;
+  max-width: 1040px;
   margin: 0 auto;
-  padding: 0 20px 22px;
+  padding: 0 14px 16px;
 }
 
 nav a {
-  min-width: 170px;
-  padding: 12px 18px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--muted);
+  min-width: 168px;
+  padding: 10px 14px;
+  border: 3px solid #000000;
+  background: #ffffff;
+  color: var(--ink);
   font-size: 0.95rem;
   font-weight: 900;
   text-align: center;
+  box-shadow: 4px 4px 0 #000000;
 }
 
 nav a:hover,
 nav a.active-page {
-  border-color: rgba(182, 255, 77, 0.7);
-  background: rgba(182, 255, 77, 0.14);
-  color: var(--text);
-  box-shadow: inset 0 -3px 0 var(--lime);
+  background: var(--yellow);
+  color: #000000;
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #000000;
 }
 
 main {
-  width: min(100% - 32px, 1080px);
+  width: min(100% - 28px, 1040px);
   margin: 0 auto;
-  padding: 44px 0 62px;
+  padding: 30px 0 52px;
+}
+
+.page-badge {
+  display: inline-block;
+  margin-bottom: 16px;
+  padding: 7px 10px;
+  border: 3px solid #000000;
+  background: var(--cyan);
+  color: #000000;
+  font-size: 0.85rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  box-shadow: 4px 4px 0 #000000;
 }
 
 section {
-  margin-bottom: 34px;
+  margin-bottom: 28px;
 }
 
 h2 {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  margin: 0 0 22px;
-  color: var(--text);
-  font-size: 1.85rem;
-  line-height: 1.15;
-}
-
-h2::after {
-  content: "";
-  width: 62px;
-  height: 4px;
-  border-radius: 999px;
-  background: var(--pink);
+  display: inline-block;
+  margin: 0 0 18px;
+  padding: 8px 12px;
+  border: 3px solid #000000;
+  background: var(--blue);
+  color: #ffffff;
+  font-size: 1.35rem;
+  line-height: 1.1;
+  text-transform: uppercase;
+  box-shadow: 4px 4px 0 #000000;
 }
 
 main > p,
 .balance-panel,
 .match-card {
-  border: 1px solid var(--line);
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)),
-    var(--panel);
-  box-shadow: var(--shadow);
+  border: 4px solid #000000;
+  background: var(--window);
+  box-shadow: var(--pixel-shadow);
 }
 
 main > p {
   max-width: 680px;
-  margin: 0 0 30px;
-  padding: 26px;
-  border-radius: 18px;
+  margin: 0 0 28px;
+  padding: 18px;
   color: var(--muted);
-  font-size: 1.12rem;
+  font-size: 1rem;
 }
 
 .balance-panel {
   max-width: 420px;
-  padding: 24px;
-  border-radius: 18px;
+  padding: 18px;
 }
 
 .balance-panel h2 {
-  margin-bottom: 10px;
-  font-size: 1.2rem;
-  color: var(--muted);
-}
-
-.balance-panel h2::after {
-  background: var(--cyan);
+  margin-bottom: 14px;
+  background: var(--red);
 }
 
 .balance-panel p {
+  display: inline-block;
   margin: 0;
-  color: var(--lime);
-  font-size: 2.45rem;
+  padding: 8px 12px;
+  border: 3px solid #000000;
+  background: #000000;
+  color: var(--green);
+  font-size: 2rem;
   font-weight: 900;
   line-height: 1;
 }
@@ -181,9 +184,8 @@ main > p {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
-  gap: 24px;
-  padding: 24px;
-  border-radius: 20px;
+  gap: 18px;
+  padding: 18px;
 }
 
 .match-card p {
@@ -192,8 +194,11 @@ main > p {
 
 .match-card p:first-child,
 .match-card p:nth-child(3) {
-  color: var(--text);
-  font-size: 1.2rem;
+  padding: 10px;
+  border: 3px solid #000000;
+  background: #ffffff;
+  color: var(--ink);
+  font-size: 1rem;
   font-weight: 900;
 }
 
@@ -201,25 +206,45 @@ main > p {
   text-align: right;
 }
 
+.featured-team {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.featured-flag {
+  width: 32px;
+  height: 22px;
+  border: 2px solid #000000;
+  object-fit: cover;
+  background: #ffffff;
+}
+
+.flag-fallback {
+  display: none;
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
 .match-card p:nth-child(2) {
-  min-width: 92px;
-  padding: 11px 18px;
-  border-radius: 14px;
-  background: var(--lime);
-  color: #111827;
-  font-size: 1.34rem;
+  min-width: 82px;
+  padding: 10px 14px;
+  border: 4px solid #000000;
+  background: var(--yellow);
+  color: #000000;
+  font-size: 1.15rem;
   font-weight: 900;
   text-align: center;
-  box-shadow: 0 12px 26px rgba(182, 255, 77, 0.22);
 }
 
 .match-card p:nth-child(4) {
   grid-column: 1 / -1;
-  padding-top: 14px;
-  border-top: 1px solid var(--line);
-  color: var(--muted);
-  font-size: 0.95rem;
-  font-weight: 800;
+  padding: 10px;
+  border: 3px dashed #000000;
+  background: var(--window-dark);
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 900;
   text-align: center;
 }
 
@@ -232,31 +257,35 @@ main > p {
 .active-bet {
   display: grid;
   gap: 6px;
-  padding: 14px;
-  border: 1px solid rgba(67, 217, 255, 0.3);
-  border-radius: 14px;
-  background: rgba(67, 217, 255, 0.08);
+  padding: 12px;
+  border: 3px solid #000000;
+  background: #ffffff;
 }
 
 .match-card button {
   grid-column: 1 / -1;
   justify-self: center;
-  padding: 11px 18px;
-  border: 0;
-  border-radius: 999px;
-  background: var(--pink);
+  padding: 10px 16px;
+  border: 3px solid #000000;
+  background: var(--red);
   color: #ffffff;
+  font-family: inherit;
   font-weight: 900;
   cursor: pointer;
+  box-shadow: 4px 4px 0 #000000;
+}
+
+.match-card button:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #000000;
 }
 
 #bet-form {
   display: grid;
-  gap: 14px;
-  padding: 16px;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.05);
+  gap: 12px;
+  padding: 14px;
+  border: 3px solid #000000;
+  background: #ffffff;
 }
 
 #bet-form[hidden] {
@@ -265,7 +294,7 @@ main > p {
 
 #bet-form fieldset {
   display: grid;
-  gap: 10px;
+  gap: 9px;
   margin: 0;
   padding: 0;
   border: 0;
@@ -273,193 +302,139 @@ main > p {
 
 #bet-form legend,
 #bet-form label {
-  color: var(--muted);
-  font-weight: 800;
+  color: var(--ink);
+  font-weight: 900;
 }
 
 #bet-form input[type="number"] {
   width: 100%;
   margin-top: 6px;
   padding: 10px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: var(--panel-2);
-  color: var(--text);
+  border: 3px solid #000000;
+  background: var(--window);
+  color: var(--ink);
+  font-family: inherit;
+  font-weight: 900;
 }
 
 footer {
-  width: min(100% - 32px, 1080px);
+  width: min(100% - 28px, 1040px);
   margin: 0 auto;
-  padding: 28px 0;
-  border-top: 1px solid var(--line);
-  color: var(--muted);
+  padding: 24px 0;
+  color: #ffffff;
   text-align: center;
 }
 
 footer p {
+  display: inline-block;
   margin: 0;
+  padding: 8px 12px;
+  border: 3px solid #000000;
+  background: var(--bg);
 }
 
 @media (max-width: 680px) {
-  body {
-    background:
-      radial-gradient(circle at top, rgba(67, 217, 255, 0.16), transparent 34%),
-      linear-gradient(180deg, #08111f 0%, #101827 100%);
-  }
-
-  header {
-    position: sticky;
-  }
-
   header h1 {
-    padding: 18px 14px 12px;
-    font-size: 1.65rem;
-  }
-
-  header h1 a {
-    gap: 9px;
+    padding: 14px 10px 10px;
+    font-size: 1.35rem;
   }
 
   header h1 a::before {
-    width: 12px;
-    height: 12px;
+    width: 24px;
+    height: 24px;
+    font-size: 0.85rem;
   }
 
   nav {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    padding: 0 12px 14px;
+    gap: 7px;
+    padding: 0 10px 12px;
   }
 
   nav a {
     min-width: 0;
-    min-height: 46px;
+    min-height: 44px;
     display: grid;
     place-items: center;
-    padding: 10px 8px;
-    border-radius: 12px;
-    font-size: 0.85rem;
-    line-height: 1.1;
+    padding: 9px;
+    font-size: 0.8rem;
+    box-shadow: 3px 3px 0 #000000;
   }
 
   main {
-    width: min(100% - 20px, 1080px);
+    width: min(100% - 18px, 1040px);
     padding-top: 22px;
-    padding-bottom: 38px;
+    padding-bottom: 36px;
   }
 
-  section {
-    margin-bottom: 24px;
+  .page-badge {
+    font-size: 0.75rem;
+    box-shadow: 3px 3px 0 #000000;
   }
 
   h2 {
-    gap: 9px;
-    margin-bottom: 16px;
-    font-size: 1.35rem;
+    margin-bottom: 14px;
+    font-size: 1rem;
+    box-shadow: 3px 3px 0 #000000;
   }
 
-  h2::after {
-    width: 38px;
-    height: 3px;
+  section {
+    margin-bottom: 22px;
   }
 
   .balance-panel {
     max-width: none;
-    padding: 18px;
-    border-radius: 16px;
-  }
-
-  .balance-panel h2 {
-    font-size: 1rem;
+    padding: 14px;
   }
 
   .balance-panel p {
-    font-size: 2rem;
+    font-size: 1.65rem;
   }
 
   #matches-list,
   #completed-matches-list,
   #featured-match {
-    gap: 12px;
+    gap: 14px;
   }
 
   .match-card {
     grid-template-columns: 1fr;
     gap: 10px;
-    padding: 16px;
-    border-radius: 16px;
+    padding: 14px;
+    box-shadow: 4px 4px 0 #000000;
     text-align: center;
   }
 
   .match-card p:first-child,
   .match-card p:nth-child(3) {
-    font-size: 1.05rem;
-    line-height: 1.25;
+    font-size: 0.95rem;
+    text-align: center;
   }
 
   .match-card p:nth-child(2) {
     justify-self: center;
-    min-width: 78px;
-    padding: 8px 14px;
-    font-size: 1.14rem;
-  }
-
-  .match-card p:nth-child(3) {
-    text-align: center;
+    min-width: 76px;
+    font-size: 1rem;
   }
 
   .match-card p:nth-child(4) {
-    padding-top: 10px;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+  }
+
+  .featured-team {
+    justify-content: center;
   }
 
   .match-card button {
     width: 100%;
-    min-height: 46px;
-    padding: 12px 16px;
-  }
-
-  #bet-form {
-    gap: 12px;
-    padding: 14px;
-    text-align: left;
-  }
-
-  #bet-form label {
-    display: block;
-    padding: 6px 0;
-  }
-
-  #bet-form input[type="radio"] {
-    width: 18px;
-    height: 18px;
-    margin-right: 8px;
-  }
-
-  #bet-form input[type="number"] {
     min-height: 44px;
-    font-size: 1rem;
-  }
-
-  footer {
-    width: min(100% - 20px, 1080px);
-    padding: 20px 0;
-    font-size: 0.85rem;
   }
 }
 
 @media (max-width: 380px) {
-  header h1 {
-    font-size: 1.45rem;
-  }
-
   nav {
     grid-template-columns: 1fr;
-  }
-
-  .match-card {
-    padding: 14px;
   }
 }
 
