@@ -1,4 +1,4 @@
-import { mockFixturesResponse } from "./mock-fixtures.js";
+import { getFixtures } from "./api.js";
 
 import {
   bettingState,
@@ -8,20 +8,8 @@ import {
 const balanceElement =
   document.getElementById("balance");
 
-// Show the current fake balance on the home page.
-function renderBalance() {
-  balanceElement.textContent =
-    bettingState.balance;
-}
-
-const matches = mockFixturesResponse.response;
-
 const featuredMatchContainer =
-    document.getElementById("featured-match")
-
-settleActiveBet(matches);
-
-renderBalance();
+  document.getElementById("featured-match");
 
 const liveStatuses = [
   "1H",
@@ -33,36 +21,80 @@ const liveStatuses = [
   "LIVE"
 ];
 
+let featuredMatch = null;
 
-// Prefer a live match for the featured card.
-const liveMatch = matches.find(match => {
-    return liveStatuses.includes(
-        match.fixture.status.short
-    );
-});
+// Show the current fake balance on the home page.
+function renderBalance() {
+  balanceElement.textContent =
+    bettingState.balance;
+}
 
-const now = new Date()
+renderBalance();
 
-// Find future matches that have not started.
-const upcomingMatches = matches.filter(match => {
-    const kickoff = new Date(match.fixture.date);
+loadFeaturedMatch();
 
-    return (
-        match.fixture.status.short === "NS" && kickoff > now
-    );
-});
+// Load fixtures from the Worker, settle an existing
+// bet when possible, and select one featured match.
+async function loadFeaturedMatch() {
+  featuredMatchContainer.textContent =
+    "Loading featured match...";
 
-// Sort upcoming matches so the nearest one is first.
-upcomingMatches.sort((matchA, matchB) => {
-    const dateA = new Date(matchA.fixture.date);
-    const dateB = new Date(matchB.fixture.date);
+  try {
+    const matches =
+      await getFixtures();
 
-    return dateA - dateB;
-});
+    settleActiveBet(matches);
 
-const nearestUpcomingMatch = upcomingMatches[0]
+    // Settling a completed bet may change the balance.
+    renderBalance();
 
-const featuredMatch = nearestUpcomingMatch || liveMatch
+    // Prefer a live match when one exists.
+    const liveMatch =
+      matches.find(match => {
+        return liveStatuses.includes(
+          match.fixture.status.short
+        );
+      });
+
+    const now =
+      new Date();
+
+    // Otherwise find the nearest future match.
+    const upcomingMatches =
+      matches
+        .filter(match => {
+          const kickoff =
+            new Date(match.fixture.date);
+
+          return (
+            match.fixture.status.short === "NS" &&
+            kickoff > now
+          );
+        })
+        .sort((matchA, matchB) => {
+          const dateA =
+            new Date(matchA.fixture.date);
+
+          const dateB =
+            new Date(matchB.fixture.date);
+
+          return dateA - dateB;
+        });
+
+    const nearestUpcomingMatch =
+      upcomingMatches[0];
+
+    featuredMatch =
+      liveMatch || nearestUpcomingMatch;
+
+    renderFeaturedMatch();
+  } catch (error) {
+    console.error(error);
+
+    featuredMatchContainer.textContent =
+      "Unable to load featured match.";
+  }
+}
 
 // Build the featured match card and optional bet form.
 function createFeaturedMatchCard(match) {
@@ -223,8 +255,6 @@ function renderFeaturedMatch() {
     `;
   } 
 }
-
-renderFeaturedMatch();
 
 // Build the form used to place one fake bet.
 function createBettingForm(match) {

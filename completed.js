@@ -1,17 +1,63 @@
-import { mockFixturesResponse } from "./mock-fixtures.js";
+import { getFixtures } from "./api.js";
 
-const matches = mockFixturesResponse.response;
+const matchesList =
+  document.getElementById("completed-matches-list");
 
-// Keep only matches that are finished.
-const finishedMatches = matches.filter(match => {
-  return match.fixture.status.short === "FT";
-});
+renderCompletedMatches();
 
-const matchesList = document.getElementById("completed-matches-list");
+// Load fixtures from the Worker and display
+// only matches that have finished.
+async function renderCompletedMatches() {
+  matchesList.textContent =
+    "Loading completed matches...";
 
-matchesList.innerHTML = finishedMatches
-  .map(match => createFinishedMatchCard(match))
-  .join("");
+  try {
+    const matches =
+      await getFixtures();
+
+    const finishedStatuses = [
+      "FT",
+      "AET",
+      "PEN"
+    ];
+
+    const finishedMatches =
+      matches
+        .filter(match => {
+          return finishedStatuses.includes(
+            match.fixture.status.short
+          );
+        })
+        .sort((matchA, matchB) => {
+          const dateA =
+            new Date(matchA.fixture.date);
+
+          const dateB =
+            new Date(matchB.fixture.date);
+
+          return dateB - dateA;
+        });
+
+    if (finishedMatches.length === 0) {
+      matchesList.textContent =
+        "No completed matches available.";
+
+      return;
+    }
+
+    matchesList.innerHTML =
+      finishedMatches
+        .map(match => {
+          return createFinishedMatchCard(match);
+        })
+        .join("");
+  } catch (error) {
+    console.error(error);
+
+    matchesList.textContent =
+      "Unable to load completed matches.";
+  }
+}
 
 // Build the HTML for one completed match card.
 function createFinishedMatchCard(match) {

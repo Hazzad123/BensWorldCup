@@ -1,17 +1,57 @@
-import { mockFixturesResponse } from "./mock-fixtures.js";
+import { getFixtures } from "./api.js";
 
-const matches = mockFixturesResponse.response;
+const matchesList =
+  document.getElementById("matches-list");
 
-// Keep only fixtures that have not started yet.
-const upcomingMatches = matches.filter(match => {
-  return match.fixture.status.short === "NS";
-});
+renderUpcomingMatches();
 
-const matchesList = document.getElementById("matches-list");
+// Load fixtures from the Worker and display
+// only matches that have not started yet.
+async function renderUpcomingMatches() {
+  matchesList.textContent =
+    "Loading matches...";
 
-matchesList.innerHTML = upcomingMatches
-  .map(match => createUpcomingMatchCard(match))
-  .join("");
+  try {
+    const matches =
+      await getFixtures();
+
+    const upcomingMatches =
+      matches
+        .filter(match => {
+          return (
+            match.fixture.status.short === "NS"
+          );
+        })
+        .sort((matchA, matchB) => {
+          const dateA =
+            new Date(matchA.fixture.date);
+
+          const dateB =
+            new Date(matchB.fixture.date);
+
+          return dateA - dateB;
+        });
+
+    if (upcomingMatches.length === 0) {
+      matchesList.textContent =
+        "No upcoming matches available.";
+
+      return;
+    }
+
+    matchesList.innerHTML =
+      upcomingMatches
+        .map(match => {
+          return createUpcomingMatchCard(match);
+        })
+        .join("");
+  } catch (error) {
+    console.error(error);
+
+    matchesList.textContent =
+      "Unable to load matches.";
+  }
+}
 
 // Build the HTML for one upcoming match card.
 function createUpcomingMatchCard(match) {
