@@ -96,6 +96,28 @@ export function forgetBettingApiKey() {
   );
 }
 
+// Clear a won or lost active bet so the next featured match can accept a new bet.
+export async function clearSettledActiveBet() {
+  if (!bettingState.activeBet) {
+    return false;
+  }
+
+  const settledStatuses = [
+    "won",
+    "lost"
+  ];
+
+  if (!settledStatuses.includes(bettingState.activeBet.status)) {
+    return false;
+  }
+
+  bettingState.activeBet = null;
+
+  await saveBettingState();
+
+  return true;
+}
+
 // Ask for the private key once per browser-tab session.
 function getBettingApiKey() {
   const savedApiKey =
@@ -143,7 +165,7 @@ function handleFailedResponse(response) {
 }
 
 // Validate the shape returned by the Worker.
-function isValidBettingState(state) {
+export function isValidBettingState(state) {
   if (
     !state ||
     typeof state !== "object" ||

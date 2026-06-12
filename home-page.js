@@ -2,6 +2,8 @@ import { getFixtures } from "./api.js";
 
 import {
   bettingState,
+  clearSettledActiveBet,
+  loadBettingState,
   saveBettingState
 } from "./betting.js";
 
@@ -40,10 +42,16 @@ async function loadFeaturedMatch() {
     "Loading featured match...";
 
   try {
+    await loadBettingState();
+
+    renderBalance();
+
     const matches =
       await getFixtures();
 
-    settleActiveBet(matches);
+    await settleActiveBet(matches);
+
+    await clearSettledActiveBet();
 
     // Settling a completed bet may change the balance.
     renderBalance();
@@ -129,14 +137,19 @@ function createFeaturedTeamMarkup(team) {
   const fallbackFlag = getEmojiFlag(countryCode);
 
   if (!countryCode) {
-    return team.name;
+    return `
+      <span class="featured-team">
+        <span class="flag-fallback visible">${fallbackFlag}</span>
+        <span>${team.name}</span>
+      </span>
+    `;
   }
 
   return `
     <span class="featured-team">
       <img
         class="featured-flag"
-        src="flags/${countryCode}.svg"
+        src="flags/${countryCode}.png"
         alt="${team.name} flag"
         onerror="this.nextElementSibling.style.display = 'inline'; this.remove();"
       >
@@ -196,7 +209,9 @@ function getCountryCode(teamName) {
     Ukraine: "UA",
     Peru: "PE",
     "Ivory Coast": "CI",
-    Panama: "PA"
+    Panama: "PA",
+    "Bosnia-Herzegovina": "BA",
+    "Bosnia and Herzegovina": "BA"
   };
 
   return countryCodes[teamName];
@@ -430,7 +445,7 @@ function createActiveBetText(match) {
 }
 
 // Settle the active bet if its match has finished.
-function settleActiveBet(matches) {
+async function settleActiveBet(matches) {
   const bet = bettingState.activeBet;
 
   if (!bet) {
@@ -474,7 +489,7 @@ function settleActiveBet(matches) {
     bet.status = "lost";
   }
 
-  saveBettingState();
+  await saveBettingState();
 }
 
 //Translate the API winner fields
