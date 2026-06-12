@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>World Cup Tracker</title>
+  <title>Standings | World Cup Tracker</title>
   <link rel="stylesheet" href="styles.css">
   <script src="password-gate.js" defer></script>
-  <script type="module" src="home-page.js"></script>
-  <script type="module" src="betting.js"></script>
   <script type="module" src="ui.js" defer></script>
 </head>
 
@@ -24,18 +21,16 @@
   </header>
 
   <main>
-    <section class="balance-panel">
-      <h2>Fake Balance</h2>
+    <section id="standings">
+      <h2>Standings</h2>
 
-      <p>
-        $<span id="balance">100</span>
-      </p>
-    </section>
+      <div class="standings-panel">
+        <h3>World Cup Bracket</h3>
 
-    <section>
-      <h2>Featured Match</h2>
-
-      <div id="featured-match"></div>
+        <div class="bracket-placeholder">
+          <a href="https://soccer2026.app/bracket" target="_blank" title="World Cup 2026 Bracket — Group Stage Live"><img src="https://soccer2026.app/images/bracket/world-cup-2026-bracket-en.png" alt="World Cup 2026 Bracket — Group Stage Live" style="max-width:100%;height:auto;" /></a><p style="font-size:12px;color:#888;text-align:center;">Bracket by <a href="https://soccer2026.app/bracket">Bola 2026</a></p>
+        </div>
+      </div>
     </section>
   </main>
 
@@ -45,5 +40,4 @@
 
   <!-- This UI was done by AI because Ben was Lazy -->
 </body>
-
 </html>

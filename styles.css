@@ -137,6 +137,7 @@ h2 {
 
 main > p,
 .balance-panel,
+.standings-panel,
 .match-card {
   border: 4px solid #000000;
   background: var(--window);
@@ -154,6 +155,34 @@ main > p {
 .balance-panel {
   max-width: 420px;
   padding: 18px;
+}
+
+.standings-panel {
+  padding: 18px;
+}
+
+.standings-panel h3 {
+  margin: 0 0 16px;
+  color: var(--ink);
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+.bracket-placeholder {
+  min-height: 360px;
+  display: grid;
+  place-items: center;
+  border: 4px dashed #000000;
+  background: #fff8e8;
+  color: var(--muted);
+  text-align: center;
+}
+
+.bracket-placeholder p {
+  margin: 0;
+  padding: 18px;
+  font-weight: 900;
+  text-transform: uppercase;
 }
 
 .balance-panel h2 {
@@ -458,6 +487,14 @@ footer p {
   .balance-panel {
     max-width: none;
     padding: 14px;
+  }
+
+  .standings-panel {
+    padding: 14px;
+  }
+
+  .bracket-placeholder {
+    min-height: 280px;
   }
 
   .balance-panel p {

@@ -9,6 +9,7 @@ It currently shows a retro-styled home page, upcoming matches, completed matches
 - `index.html` - home page with the fake balance and featured match.
 - `matches.html` - upcoming matches page.
 - `completed.html` - completed matches page.
+- `standings.html` - standings page with space for a bracket embed.
 - `betting-tests.html` - local test page for checking betting logic before deploying.
 
 ## Main JavaScript Files
